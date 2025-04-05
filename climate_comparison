@@ -1,0 +1,31 @@
+# Load data
+USA_data <- read.csv("USA_climate.csv")
+GBR_data <- read.csv("GBR_climate.csv")
+
+# Summary statistics
+summary(USA_data)
+summary(GBR_data)
+
+# Create vectors of average, max, and min
+USA_vector <- c(mean(USA_data$Rainfall), max(USA_data$Rainfall), min(USA_data$Rainfall),
+                mean(USA_data$Temperature), max(USA_data$Temperature), min(USA_data$Temperature))
+
+GBR_vector <- c(mean(GBR_data$Rainfall), max(GBR_data$Rainfall), min(GBR_data$Rainfall),
+                mean(GBR_data$Temperature), max(GBR_data$Temperature), min(GBR_data$Temperature))
+
+# Create matrices
+USA_matrix <- matrix(USA_vector, ncol = 1)
+GBR_matrix <- matrix(GBR_vector, ncol = 1)
+
+# Label rows and columns
+rownames(USA_matrix) <- c("Rain Avg", "Rain Max", "Rain Min", "Temp Avg", "Temp Max", "Temp Min")
+colnames(USA_matrix) <- "USA"
+
+rownames(GBR_matrix) <- rownames(USA_matrix)
+colnames(GBR_matrix) <- "GBR"
+
+# Combine into a data frame
+comparison_df <- data.frame(USA_matrix, GBR_matrix, Difference = USA_matrix - GBR_matrix)
+
+# Print result
+print(comparison_df)
